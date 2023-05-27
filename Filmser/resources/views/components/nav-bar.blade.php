@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top font-weight-normal">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('index')}}">[IMG]</a>
+        <a class="navbar-brand" href="{{route('index')}}"><img src="{{asset('images/favicon.ico')}}" alt="Log in"/></a>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="{{route('films')}}">Films</a>
@@ -33,13 +33,8 @@
                             </li>
                         </ul>
                     </div>
-                        
                 @else
-                        <a href="{{ route('login') }}" class="nav-link">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="nav-link">Register</a>
-                        @endif
+                        <a href="{{ route('login') }}" class="nav-link" id="log-in-icon"><i class="fa-solid fa-person-walking-arrow-right"></i></a>
                     @endauth
                 @endif
             </div>

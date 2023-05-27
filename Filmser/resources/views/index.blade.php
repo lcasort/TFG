@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.template')
 
 @section('title', 'Home')
 
@@ -6,4 +6,7 @@
 
 @section('content')
 <!-- content -->
+@endsection
+
+@section('scripts')
 @endsection
