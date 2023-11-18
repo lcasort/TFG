@@ -105,12 +105,12 @@ class MoodSeeder extends Seeder
         $pissed->emoji = '/img/pissed.png';
         $pissed->save();
 
-        $indiferent = new Mood;
-        $indiferent->name = 'indiferent';
-        $indiferent->key = 'disgust';
-        $indiferent->color = '#CA8DFD';
-        $indiferent->emoji = '/img/indiferent.png';
-        $indiferent->save();
+        $indifferent = new Mood;
+        $indifferent->name = 'indifferent';
+        $indifferent->key = 'disgust';
+        $indifferent->color = '#CA8DFD';
+        $indifferent->emoji = '/img/indifferent.png';
+        $indifferent->save();
 
 
         /*
