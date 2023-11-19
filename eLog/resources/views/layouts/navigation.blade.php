@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <img class="h-20 fill-current text-gray-500" src="{{asset('/img/logo/logo_banner_light.png')}}" alt="eLog" />
                     </a>
                 </div>
 
