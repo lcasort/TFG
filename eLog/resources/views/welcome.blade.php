@@ -58,15 +58,10 @@
                     <div class="p-6">
                         @if (Route::has('login'))
                             <div class="fade-in-buttons d-flex justify-content-center">
-                                @auth
-                                    <!-- TODO: Redirect to index page (logged). -->
-                                @else
-                                    <a href="{{ route('login') }}" class="btn btn-outline-light text-muted mx-4">Log in</a>
-
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="btn btn-outline-light text-muted mx-4">Register</a>
-                                    @endif
-                                @endauth
+                                <a href="{{ route('login') }}" class="btn btn-outline-light text-muted mx-4">Log in</a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="btn btn-outline-light text-muted mx-4">Register</a>
+                                @endif
                             </div>
                         @endif
                     </div>
