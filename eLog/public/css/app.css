@@ -1,0 +1,41 @@
+.nav-bar-logo
+{
+    width: 30%;
+}
+
+.icon
+{
+    width: 50px;
+}
+
+.nav-item span
+{
+    font-size: 16px;
+}
+
+.navigation-bar
+{
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    background-color: #292f3d;
+}
+
+.user-button>.btn
+{
+    border-radius: 8px;
+    border-width: 0;
+    background-color: #585d68;
+}
+.user-button>.btn:hover
+{
+    color: #95f6cd;
+    background-color: #414652;
+}
+
+.logout-button:hover,
+.nav-link:hover,
+.collapse-button:hover
+{
+    color: #95f6cd;
+}
