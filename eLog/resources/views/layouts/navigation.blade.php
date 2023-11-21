@@ -9,9 +9,9 @@
                             src="{{asset('/img/logo/logo_light.png')}}"
                             alt="eLog" />
                     </a>
-                    <a href="#" class="collapse-button">
+                    {{-- <a href="#" class="collapse-button">
                         <i class="fa-solid fa-bars"></i>
-                    </a>
+                    </a> --}}
                 </div>
                 <!-- Pages -->
                 <div class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start py-3" id="menu">

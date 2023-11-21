@@ -21,6 +21,11 @@
     background-color: #292f3d;
 }
 
+.profile-card
+{
+    background-color: #292f3d !important;
+}
+
 .user-button>.btn
 {
     border-radius: 8px;
@@ -33,9 +38,22 @@
     background-color: #414652;
 }
 
+.primary-button:hover,
+.primary-button:focus
+{
+    color: #292929 !important;
+}
+
 .logout-button:hover,
 .nav-link:hover,
 .collapse-button:hover
 {
     color: #95f6cd;
+}
+
+.main-page-header
+{
+    border: 1px solid white;
+    border-radius: 8px;
+    margin: 24px 32px 0 32px;
 }

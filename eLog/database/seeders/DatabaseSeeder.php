@@ -12,11 +12,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
+        |-----------------------------------------------------------------------
+        | FACTORIES
+        |-----------------------------------------------------------------------
+        */
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        /*
+        |-----------------------------------------------------------------------
+        | SEEDERS
+        |-----------------------------------------------------------------------
+        */
+        $this->call(MoodSeeder::class);
+        $this->call(InspirationalQuoteSeeder::class);
+        $this->call(PromptSeeder::class);
     }
 }

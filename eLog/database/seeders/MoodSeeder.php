@@ -18,14 +18,14 @@ class MoodSeeder extends Seeder
         | TRUST
         |-----------------------------------------------------------------------
         */
-        $peaceful = new Mood;
+        $peaceful = new Mood();
         $peaceful->name = 'peaceful';
         $peaceful->key = 'trust';
         $peaceful->color = '#50C878';
         $peaceful->emoji = '/img/moods/peaceful.png';
         $peaceful->save();
 
-        $hopeful = new Mood;
+        $hopeful = new Mood();
         $hopeful->name = 'hopeful';
         $hopeful->key = 'trust';
         $hopeful->color = '#228B22';
@@ -38,14 +38,14 @@ class MoodSeeder extends Seeder
         | FEAR
         |-----------------------------------------------------------------------
         */
-        $cautious = new Mood;
+        $cautious = new Mood();
         $cautious->name = 'cautious';
         $cautious->key = 'fear';
         $cautious->color = '#D3D3D3';
         $cautious->emoji = '/img/moods/cautious.png';
         $cautious->save();
 
-        $anxious = new Mood;
+        $anxious = new Mood();
         $anxious->name = 'anxious';
         $anxious->key = 'fear';
         $anxious->color = '#A9A9A9';
@@ -58,14 +58,14 @@ class MoodSeeder extends Seeder
         | SURPRISE
         |-----------------------------------------------------------------------
         */
-        $confused = new Mood;
+        $confused = new Mood();
         $confused->name = 'confused';
         $confused->key = 'surprise';
         $confused->color = '#F8C8DC';
         $confused->emoji = '/img/moods/confused.png';
         $confused->save();
 
-        $amazed = new Mood;
+        $amazed = new Mood();
         $amazed->name = 'amazed';
         $amazed->key = 'surprise';
         $amazed->color = '#FF69B4';
@@ -78,14 +78,14 @@ class MoodSeeder extends Seeder
         | SAD
         |-----------------------------------------------------------------------
         */
-        $hurt = new Mood;
+        $hurt = new Mood();
         $hurt->name = 'hurt';
         $hurt->key = 'sad';
         $hurt->color = '#0047AB';
         $hurt->emoji = '/img/moods/hurt.png';
         $hurt->save();
 
-        $unhappy = new Mood;
+        $unhappy = new Mood();
         $unhappy->name = 'unhappy';
         $unhappy->key = 'sad';
         $unhappy->color = '#89CFF0';
@@ -98,14 +98,14 @@ class MoodSeeder extends Seeder
         | DISGUST
         |-----------------------------------------------------------------------
         */
-        $pissed = new Mood;
+        $pissed = new Mood();
         $pissed->name = 'pissed';
         $pissed->key = 'disgust';
         $pissed->color = '#F0CEFF';
         $pissed->emoji = '/img/moods/pissed.png';
         $pissed->save();
 
-        $indifferent = new Mood;
+        $indifferent = new Mood();
         $indifferent->name = 'indifferent';
         $indifferent->key = 'disgust';
         $indifferent->color = '#CA8DFD';
@@ -118,14 +118,14 @@ class MoodSeeder extends Seeder
         | ANGER
         |-----------------------------------------------------------------------
         */
-        $frustrated = new Mood;
+        $frustrated = new Mood();
         $frustrated->name = 'frustrated';
         $frustrated->key = 'anger';
         $frustrated->color = '#F0CEFF';
         $frustrated->emoji = '/img/moods/frustrated.png';
         $frustrated->save();
 
-        $angry = new Mood;
+        $angry = new Mood();
         $angry->name = 'angry';
         $angry->key = 'anger';
         $angry->color = '#CA8DFD';
@@ -138,14 +138,14 @@ class MoodSeeder extends Seeder
         | ANTICIPATION
         |-----------------------------------------------------------------------
         */
-        $eager = new Mood;
+        $eager = new Mood();
         $eager->name = 'eager';
         $eager->key = 'anticipation';
         $eager->color = '#FF7518';
         $eager->emoji = '/img/moods/eager.png';
         $eager->save();
 
-        $interested = new Mood;
+        $interested = new Mood();
         $interested->name = 'interested';
         $interested->key = 'anticipation';
         $interested->color = '#FFA500';
@@ -157,14 +157,14 @@ class MoodSeeder extends Seeder
         | HAPPY
         |-----------------------------------------------------------------------
         */
-        $confident = new Mood;
+        $confident = new Mood();
         $confident->name = 'confident';
         $confident->key = 'happy';
         $confident->color = '#FFFAA0';
         $confident->emoji = '/img/moods/confident.png';
         $confident->save();
 
-        $joyful = new Mood;
+        $joyful = new Mood();
         $joyful->name = 'joyful';
         $joyful->key = 'happy';
         $joyful->color = '#FCF55F';
