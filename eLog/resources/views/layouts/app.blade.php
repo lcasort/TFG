@@ -31,7 +31,7 @@
                     @include('layouts.navigation')
                 </div>
 
-                <div class="col-sm main-body pl-0">
+                <div class="col-sm main-body px-0">
                     <!-- Page Heading -->
                     @if (isset($header))
                         <header class="main-page-header">
