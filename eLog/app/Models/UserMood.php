@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Mood extends Model
+class UserMood extends Model
 {
     use HasFactory;
 
@@ -16,16 +16,16 @@ class Mood extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
     ];
 
 
     /**
-     * The user moods that belong to the mood.
+     * Get the mood that owns the user mood.
      */
-    public function userMoods(): HasMany
+    public function mood(): BelongsTo
     {
-        return $this->hasMany(UserMood::class);
+        return $this->belongsTo(Mood::class);
     }
 }

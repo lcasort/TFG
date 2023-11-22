@@ -24,8 +24,7 @@
                         </a>
                     </div>
                     <div class="nav-item">
-                        <!-- TODO: Link this to the mood individual view page. -->
-                        <a href="#" class="nav-link align-middle px-0 d-flex flex-row">
+                        <a href="{{ route('moods') }}" class="nav-link align-middle px-0 d-flex flex-row">
                             <div class="text-center icon pr-3">
                                 <i class="fa-regular fa-heart"></i>
                             </div>
@@ -34,7 +33,7 @@
                     </div>
                     <div class="nav-item">
                         <!-- TODO: Link this to the habits individual view page. -->
-                        <a href="#" class="nav-link align-middle px-0 d-flex flex-row">
+                        <a href="{{ route('habits') }}" class="nav-link align-middle px-0 d-flex flex-row">
                             <div class="text-center icon pr-3">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
@@ -43,7 +42,7 @@
                     </div>
                     <div class="nav-item">
                         <!-- TODO: Link this to the journal individual view page. -->
-                        <a href="#" class="nav-link align-middle px-0 d-flex flex-row">
+                        <a href="{{ route('journal') }}" class="nav-link align-middle px-0 d-flex flex-row">
                             <div class="text-center icon pr-3">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </div>

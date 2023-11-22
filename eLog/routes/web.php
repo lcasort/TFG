@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HabitController;
+use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MoodController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +37,12 @@ Route::middleware('auth')->group(function () {
 // Mood, habits & journal
 Route::middleware(['auth', 'verified'])->group(function () {
     // Mood
-    // Route::get('/moods', [MoodController::class, 'list'])->name('moods');
+    Route::get('/moods', [MoodController::class, 'index'])->name('moods');
     // Route::post('/mood', [MoodController::class, 'save'])->name('mood.save');
     // Route::patch('/mood', [MoodController::class, 'update'])->name('mood.update');
 
     // Habits
-    // Route::get('/habits', [HabitController::class, 'list'])->name('habits');
+    Route::get('/habits', [HabitController::class, 'list'])->name('habits');
     // Route::post('/habit', [HabitController::class, 'save'])->name('habit.save');
     // Route::delete('/habit', [HabitController::class, 'destroy'])->name('habit.destroy');
     // Route::post('/habit-logs', [HabitController::class, 'listHabitLogs'])->name('habit-logs');
@@ -47,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::path('/habit-log', [HabitController::class, 'updateHabitLog'])->name('habit-log.update');
 
     // Journal
-    // Route::get('/journal-entries', [JournalController::class, 'list'])->name('habits');
+    Route::get('/journal-entries', [JournalController::class, 'list'])->name('journal');
     // Route::get('/journal-entry', [JournalController::class, 'show'])->name('habits');
     // Route::get('/journal-entries', [JournalController::class, 'list'])->name('habits');
 });

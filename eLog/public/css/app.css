@@ -70,5 +70,89 @@
 
 .main-page-container
 {
-    margin: 0 32px 0 32px;
+    margin: 40px 0 !important;
+    padding: 0 32px !important;
+}
+
+.page-cards
+{
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+}
+.page-card-title
+{
+    border: 1px solid white;
+    background-color: #292f3d;
+    border-radius: 20px;
+}
+.page-card-body
+{
+    background-color: #414652;
+    border-radius: 20px;
+}
+
+.inspirational-quote-container
+{
+    font-size: 30px;
+    font-family: 'Sriracha', cursive;
+}
+
+.day-check,
+.day-not-check
+{
+    min-width: 30px !important;
+    max-width: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    border-radius: 30px !important;
+}
+.day-check>img
+{
+    min-width: 30px !important;
+    max-width: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+}
+.day-not-check
+{
+    background-color: white;
+    opacity: 25%;
+}
+
+.month-container
+{
+    max-width: fit-content;
+}
+
+.days-week
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+.days-week div
+{
+    max-width: fit-content;
+    min-width: 40px;
+    margin-right: 20px !important;
+}
+
+.week-data
+{
+    max-width: fit-content;
+}
+.week-data .col
+{
+    margin-right: 20px;
+    min-width: 40px;
+    width: 100%;
+}
+
+.week-data .col .row
+{
+    width: 100%;
+}
+
+.day-number
+{
+    min-width: 100%;
 }
