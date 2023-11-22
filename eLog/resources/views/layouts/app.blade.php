@@ -25,13 +25,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="container p-0 m-0 min-h-screen bg-gray-100 dark:bg-gray-900" style="min-width: 100%">
-            <div class="row">
-                <div class="col-sm pr-0 navigation-bar" style="max-width: fit-content">
+        <div class="container p-0 m-0 bg-gray-100 dark:bg-gray-900" style="min-width: 100%">
+            <div class="row p-0 m-0 text-muted">
+                <div class="col pr-0 navigation-bar" style="max-width: fit-content">
                     @include('layouts.navigation')
                 </div>
 
-                <div class="col-sm main-body px-0">
+                <div class="col main-body px-0">
                     <!-- Page Heading -->
                     @if (isset($header))
                         <header class="main-page-header">

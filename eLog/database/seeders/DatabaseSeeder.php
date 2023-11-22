@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MoodSeeder::class);
         $this->call(InspirationalQuoteSeeder::class);
         $this->call(PromptSeeder::class);
+        $this->call(MeditationVideoSeeder::class);
     }
 }

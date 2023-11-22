@@ -1,6 +1,6 @@
-body>div
+* 
 {
-    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .nav-bar-logo
@@ -43,6 +43,11 @@ body>div
     background-color: #414652;
 }
 
+.primary-button
+{
+    color: #292929 !important;
+}
+
 .primary-button:hover,
 .primary-button:focus
 {
@@ -61,4 +66,9 @@ body>div
     border: 1px solid white;
     border-radius: 8px;
     margin: 24px 32px 0 32px;
+}
+
+.main-page-container
+{
+    margin: 0 32px 0 32px;
 }
