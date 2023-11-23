@@ -38,8 +38,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Mood
     Route::get('/moods', [MoodController::class, 'index'])->name('moods');
-    // Route::post('/mood', [MoodController::class, 'save'])->name('mood.save');
-    // Route::patch('/mood', [MoodController::class, 'update'])->name('mood.update');
+    Route::post('/mood', [MoodController::class, 'save'])->name('mood.save');
+    Route::patch('/mood/update', [MoodController::class, 'update'])->name('mood.update');
 
     // Habits
     Route::get('/habits', [HabitController::class, 'list'])->name('habits');

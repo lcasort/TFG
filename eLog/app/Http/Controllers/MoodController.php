@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Mood;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -27,8 +28,32 @@ class MoodController extends Controller
 
         // Calculate the days of the week in the correct order
         $daysOfTheWeek = $this->getDaysofTheWeekOrdered();
+
+        // We get all the possible moods
+        $moodOptions = Mood::all();
+
+        // We get the mood of the user today
+        $moodToday = $moods->where('date', 'like', $today)->first()->mood;
         
-        return view('moods', compact(['today', 'startOfWeek', 'moodsByDate', 'daysOfTheWeek']));
+        return view('moods', compact([
+            'today',
+            'startOfWeek',
+            'moodsByDate',
+            'daysOfTheWeek',
+            'moodOptions',
+            'moodToday'
+        ]));
+
+    }
+
+    public function save(Request $request)
+    {
+        return $request;
+    }
+
+    public function update(Request $request)
+    {
+        return $request;
     }
 
     private function getUserMoodsWithParsedDate(User $user): Collection

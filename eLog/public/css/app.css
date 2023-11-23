@@ -156,3 +156,75 @@
 {
     min-width: 100%;
 }
+
+.form-container
+{
+    height: fit-content;
+    background-color: #292f3d !important;
+    padding: 20px 20px;
+    border-radius: 20px;
+    margin: 0 15px;
+}
+
+.mood-today-set,
+.mood-today-not-set
+{
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+    border-radius: 150px;
+}
+.mood-today-not-set
+{
+    background-color: white;
+    opacity: 25%;
+}
+
+.selected-pic
+{
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    border-radius: 50px;
+    background-color: transparent;
+    border: none;
+}
+
+form input[type=radio] {
+    display: none;
+    background-color: transparent;
+}
+
+form>fieldset>legend
+{
+    border-bottom: 1px solid;
+}
+  
+.selected-pic:hover {
+    opacity:0.6;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.selected-pic:active {
+    opacity:0.4;
+    cursor: pointer;
+}
+
+form input[type=radio]:checked + label > img {
+    background-color: transparent;
+    opacity:0.2;
+}
+.submit-button
+{
+    background-color: #585d68 !important;
+    color: white;
+    border-radius: 8px;
+}
+.submit-button:hover
+{
+    background-color: #414652 !important;
+    color: #95f6cd;
+}
