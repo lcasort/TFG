@@ -46,7 +46,7 @@
                     @endif
 
                     <!-- Page Content -->
-                    <main>
+                    <main class="d-flex justify-content-center">
                         {{ $slot }}
                     </main>
                 </div>

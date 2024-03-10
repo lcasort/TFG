@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Mood;
-use Carbon\Carbon;
+use App\Repositories\MoodRepository;
+use App\Services\DateService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class MoodController extends Controller
 {
+    protected MoodRepository $moodRepository;
+    protected DateService $dateService;
     public function __construct()
     {
-        // TODO: Add protected variable and assignmet here.
+        $this->moodRepository = app(MoodRepository::class);
+        $this->dateService = app(DateService::class);
     }
     
     /**
@@ -25,7 +29,7 @@ class MoodController extends Controller
      * - The available mood options.
      * - The mood of the user today.
      *
-     * @return view
+     * @return Factory|View
      */
     public function index()
     {
@@ -33,34 +37,26 @@ class MoodController extends Controller
         $user = User::find(Auth::user()->id);
 
         // We get all the moods related to the user with the date parsed.
-        $moods = $this->getUserMoodsWithParsedDate($user);
-
-        // We get the dates of today and a week prior from today.
-        $today = Carbon::now()->format('Y-m-d');
-        $startOfWeek = Carbon::now()->subDays(6)->format('Y-m-d');
+        $moods = $this->moodRepository->getUserMoodsWithParsedDate($user);
         
         // We create an array that assigns the mood to the corresponding date.
-        $moodsByDate = $this->mergeMoodsAndDays($moods);
+        $moodsByDate = $this->moodRepository->mergeMoodsAndDays($moods);
 
         // Calculate the days of the week in the correct order
-        $daysOfTheWeek = $this->getDaysofTheWeekOrdered();
+        $daysOfTheWeek = $this->dateService->getDaysofTheWeekOrdered();
 
         // We get all the possible moods
-        $moodOptions = Mood::all();
+        $moodOptions = $this->moodRepository->getAllMoods();
 
         // We get the mood of the user today
-        $moodToday = $moods->where('date', 'like', $today)->first();
-        $moodToday = $moodToday ? $moodToday->mood : null;
+        $moodToday = $this->moodRepository->getTodaysMood($moods);
         
         return view('moods', compact([
-            'today',
-            'startOfWeek',
             'moodsByDate',
             'daysOfTheWeek',
             'moodOptions',
             'moodToday'
         ]));
-
     }
 
     public function save(Request $request)
@@ -74,59 +70,4 @@ class MoodController extends Controller
         // TODO: Update today's mood.
         return $request;
     }
-
-    ////////////////////////////////////////////////////////////////////////////
-    //          TODO: Move all these methods to the MoodRepository.           //
-    ////////////////////////////////////////////////////////////////////////////
-    private function getUserMoodsWithParsedDate(User $user): Collection
-    {
-        $moods = $user->userMoods()->with(['mood'])->get()->map(
-            function ($mood)
-            {
-                $mood->date = Carbon::parse($mood->created_at)->format('Y-m-d');
-                return $mood;
-            }
-        );
-
-        return $moods;
-    }
-
-    private function mergeMoodsAndDays(Collection $moods)
-    {
-        $endOfMonth = Carbon::now()->endOfMonth();
-        $startOfMonth = Carbon::now()->startOfMonth();
-
-        $moodsByDate = [];
-        for ($i = 0; $i < $endOfMonth->day; $i++)
-        {
-            $date = Carbon::parse($startOfMonth)->addDays($i)->format('Y-m-d');
-            $mood = $moods->where('date', 'like', $date)->first();
-            $moodsByDate[$date] = $mood;
-        }
-
-        return $moodsByDate;
-    }
-
-    private function getDaysofTheWeekOrdered()
-    {
-        $nameFirstDayMonth = Carbon::now()->startOfMonth();
-
-        if ($nameFirstDayMonth->isMonday()) {
-            return ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-        } elseif ($nameFirstDayMonth->isTuesday()) {
-            return ['TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN', 'MON'];
-        } elseif ($nameFirstDayMonth->isWednesday()) {
-            return ['WED', 'THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE'];
-        } elseif ($nameFirstDayMonth->isThursday()) {
-            return ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
-        } elseif ($nameFirstDayMonth->isFriday()) {
-            return ['FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU'];
-        } elseif ($nameFirstDayMonth->isSaturday()) {
-            return ['SAT','SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
-        } else {
-            return ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        }
-    }
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
 }

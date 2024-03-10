@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 main-page-container">
+    <div class="py-12 main-page-container d-flex justify-content-center">
         <div class="container text-center p-0 m-0">
             <!-- Motivational quote -->
             <div class="row inspirational-quote-container p-0 m-0 justify-content-center">

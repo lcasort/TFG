@@ -27,6 +27,7 @@
             footer .border-bottom {border-bottom: 1px solid #6b757d !important;}
             footer a:hover {color: #95f6cd;}
             @keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+            .main {min-width: 100% !important; min-height: 100% !important}
         </style>
 
         <!-- Scripts -->
@@ -34,7 +35,7 @@
     </head>
     <body class="antialiased">
         <div class="relative w-100 sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-gray-100 dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            <div class="max-w-7xl mx-auto pt-6 lg:pt-8 w-100">
+            <div class="max-w-7xl pt-6 lg:pt-8 w-100">
                 <div class="flex justify-center flex-column pt-6 pb-2">
                     <div class="d-flex justify-content-center mb-3">
                         <img class="h-10 fill-current text-gray-500"
