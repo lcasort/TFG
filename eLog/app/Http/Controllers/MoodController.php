@@ -11,6 +11,22 @@ use Illuminate\Support\Facades\Auth;
 
 class MoodController extends Controller
 {
+    public function __construct()
+    {
+        // TODO: Add protected variable and assignmet here.
+    }
+    
+    /**
+     * Method that sends to the mood view the following data:
+     * - Today's date.
+     * - The date of the start of the week.
+     * - The moods of the user sorted by date.
+     * - The day's of the week.
+     * - The available mood options.
+     * - The mood of the user today.
+     *
+     * @return view
+     */
     public function index()
     {
         // We get the logged user.
@@ -33,7 +49,8 @@ class MoodController extends Controller
         $moodOptions = Mood::all();
 
         // We get the mood of the user today
-        $moodToday = $moods->where('date', 'like', $today)->first()->mood;
+        $moodToday = $moods->where('date', 'like', $today)->first();
+        $moodToday = $moodToday ? $moodToday->mood : null;
         
         return view('moods', compact([
             'today',
@@ -48,14 +65,19 @@ class MoodController extends Controller
 
     public function save(Request $request)
     {
+        // TODO: Save today's user mood.
         return $request;
     }
 
     public function update(Request $request)
     {
+        // TODO: Update today's mood.
         return $request;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    //          TODO: Move all these methods to the MoodRepository.           //
+    ////////////////////////////////////////////////////////////////////////////
     private function getUserMoodsWithParsedDate(User $user): Collection
     {
         $moods = $user->userMoods()->with(['mood'])->get()->map(
@@ -105,4 +127,6 @@ class MoodController extends Controller
             return ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         }
     }
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
 }
