@@ -5,7 +5,8 @@
 
 .nav-bar-logo
 {
-    width: 30%;
+    min-width: 50px;
+    width: 50px;
 }
 
 .icon
@@ -70,6 +71,8 @@
 
 .main-page-container
 {
+    min-width: 100% !important;
+    min-height: 100% !important;
     margin: 40px 0 !important;
     padding: 0 32px !important;
 }
@@ -227,4 +230,10 @@ form input[type=radio]:checked + label > img {
 {
     background-color: #414652 !important;
     color: #95f6cd;
+}
+
+@media (max-width: 768px) {
+    .navigation-bar {
+        width: 50px;
+    }
 }

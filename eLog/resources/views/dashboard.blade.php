@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 main-page-container d-flex justify-content-center">
+    <div class="dashboard py-12 main-page-container d-flex justify-content-center">
         <div class="container text-center p-0 m-0">
             <!-- Motivational quote -->
             <div class="row inspirational-quote-container p-0 m-0 justify-content-center">

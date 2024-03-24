@@ -31,7 +31,7 @@
     <body class="font-sans antialiased">
         <div class="container p-0 m-0 bg-gray-100 dark:bg-gray-900" style="min-width: 100%">
             <div class="row p-0 m-0 text-muted">
-                <div class="col pr-0 navigation-bar" style="max-width: fit-content">
+                <div class="col py-0 px-2 navigation-bar" style="max-width: fit-content">
                     @include('layouts.navigation')
                 </div>
 
