@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\MoodRepository;
 use App\Services\DateService;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -31,7 +32,7 @@ class MoodController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(): View
     {
         // We get the logged user.
         $user = User::find(Auth::user()->id);
@@ -59,15 +60,33 @@ class MoodController extends Controller
         ]));
     }
 
-    public function save(Request $request)
+    /**
+     * Save today's mood for the authorized user.
+     *
+     * @param  Request $request
+     * @return RedirectResponse
+     */
+    public function save(Request $request): RedirectResponse
     {
-        // TODO: Save today's user mood.
-        return $request;
-    }
+        $user = User::find(Auth::user()->id);
 
-    public function update(Request $request)
+        $this->moodRepository->saveUserMood($user, $request->mood);
+
+        return back();
+    }
+    
+    /**
+     * Update today's mood for the authorized user.
+     *
+     * @param  Request $request
+     * @return RedirectResponse
+     */
+    public function update(Request $request): RedirectResponse
     {
-        // TODO: Update today's mood.
-        return $request;
+        $user = User::find(Auth::user()->id);
+
+        $this->moodRepository->updateUserMood($user, $request->mood);
+
+        return back();
     }
 }

@@ -11,6 +11,22 @@ class UserMood extends Model
     use HasFactory;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'mood_id'
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
