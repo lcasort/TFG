@@ -15,13 +15,11 @@
             <div class="page-cards row mx-0 p-0 text-white">
                 <div class="page-card col-lg p-0 mr-lg-4 mb-6 mb-lg-0">
                     <div class="page-card-title mb-2">{{ 'MOODS' }}</div>
-                    <div class="page-card-body">
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek
+                    <div class="page-card-body p-4">
+                        <x-mood-input-form
+                            :moodToday=$moodToday
+                            :moodOptions=$moodOptions
+                        />
                     </div>
                 </div>
                 <div class="page-card col-lg p-0 mr-lg-4 mb-6 mb-lg-0">
