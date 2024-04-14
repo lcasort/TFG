@@ -25,12 +25,9 @@
                 <div class="page-card col-lg p-0 mr-lg-4 mb-6 mb-lg-0">
                     <div class="page-card-title mb-2">{{ 'HABITS '}}</div>
                     <div class="page-card-body">
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek
+                        <x-user-habit-log
+                            :habits=$habits
+                        />
                     </div>
                 </div>
                 <div class="page-card col-lg p-0">

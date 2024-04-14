@@ -119,7 +119,7 @@ class MoodRepository
      * @param  string $mood
      * @return void
      */
-    public function updateUserMood(User $user, string $mood)
+    public function updateUserMood(User $user, string $mood): void
     {
         $mood = Mood::where('name', $mood)->firstOrFail();
 

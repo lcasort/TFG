@@ -59,4 +59,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserMood::class);
     }
+
+    /**
+     * Get the habits for the user.
+     */
+    public function userHabits(): HasMany
+    {
+        return $this->hasMany(UserHabit::class);
+    }
 }

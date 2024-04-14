@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\InspirationalQuote;
 use App\Models\MeditationVideo;
+use App\Repositories\HabitRepository;
 use App\Repositories\MoodRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     protected MoodRepository $moodRepository;
+    protected HabitRepository $habitRepository;
     public function __construct()
     {
         $this->moodRepository = app(MoodRepository::class);
+        $this->habitRepository = app(HabitRepository::class);
     }
 
 
@@ -54,11 +57,15 @@ class DashboardController extends Controller
         // We get the mood of the user today
         $moodToday = $this->moodRepository->getTodaysMood($moods);
 
+        // We get the user's habits
+        $habits = $this->habitRepository->getAllUserHabitsForCurrentWeek($user);
+
         return view('dashboard', compact([
             'inspirationalQuote',
             'meditationVideos',
             'moodOptions',
-            'moodToday'
+            'moodToday',
+            'habits'
         ]));
     }
 

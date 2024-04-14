@@ -6,6 +6,18 @@
     </x-slot>
 
     <div class="py-12 main-page-container">
-    
+        <!-- Navigation bar for journal entries -->
+        <div>
+            <!-- Previous entry button -->
+            <!-- Date -->
+            <!-- Next entry button -->
+        </div>
+        <!-- Input space to write journal entry -->
+        <div>
+            <form action="{{ route('journal.save') }}" method="POST">
+                <!-- Save button (saves journal entry) -->
+                <input type="submit" />
+            </form>
+        </div>
     </div>
 </x-app-layout>

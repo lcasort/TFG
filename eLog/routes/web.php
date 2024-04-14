@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Mood, habits & journal
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'web'])->group(function () {
     // Mood
     Route::get('/moods', [MoodController::class, 'index'])->name('moods');
     Route::post('/mood', [MoodController::class, 'save'])->name('mood.save');
@@ -43,16 +43,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Habits
     Route::get('/habits', [HabitController::class, 'list'])->name('habits');
-    // Route::post('/habit', [HabitController::class, 'save'])->name('habit.save');
+    Route::post('/habit', [HabitController::class, 'save'])->name('habit.save');
     // Route::delete('/habit', [HabitController::class, 'destroy'])->name('habit.destroy');
     // Route::post('/habit-logs', [HabitController::class, 'listHabitLogs'])->name('habit-logs');
-    // Route::post('/habit-log', [HabitController::class, 'saveHabitLog'])->name('habit-log.save');
-    // Route::path('/habit-log', [HabitController::class, 'updateHabitLog'])->name('habit-log.update');
+    Route::post('/habit-log', [HabitController::class, 'saveHabitLog'])->name('habit-log.save');
+    Route::delete('/habit-log', [HabitController::class, 'deleteHabitLog'])->name('habit-log.delete');
 
     // Journal
     Route::get('/journal-entries', [JournalController::class, 'list'])->name('journal');
     // Route::get('/journal-entry', [JournalController::class, 'show'])->name('habits');
     // Route::get('/journal-entries', [JournalController::class, 'list'])->name('habits');
+    Route::post('/journal-entries', [JournalController::class, 'save'])->name('journal.save');
 });
 
 require __DIR__.'/auth.php';

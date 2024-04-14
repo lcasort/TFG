@@ -121,6 +121,10 @@
     background-color: white;
     opacity: 25%;
 }
+.color-marked
+{
+    background-color: #95f6cd !important;
+}
 
 .month-container
 {
@@ -160,7 +164,8 @@
     min-width: 100%;
 }
 
-.form-container
+.form-container,
+.month-container-bg
 {
     height: fit-content;
     background-color: #292f3d !important;
@@ -182,6 +187,24 @@
 {
     background-color: white;
     opacity: 25%;
+}
+
+.habit-name
+{
+    font-weight: bold;
+    font-size: large;
+}
+
+.add-habit-log
+{
+    color: #95f6cd;
+}
+
+.input-header
+{
+    border: none !important;
+    background: transparent !important;
+    width: fit-content;
 }
 
 .selected-pic
