@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('user_journal_entries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('prompt_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('prompt_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->string('text');
+            $table->longText('text');
             $table->timestamps();
         });
     }

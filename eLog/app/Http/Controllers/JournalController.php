@@ -2,25 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JournalEntry;
+use App\Models\User;
+use App\Repositories\JournalRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JournalController extends Controller
 {
-    public function list()
+    protected JournalRepository $journalRepository;
+    public function __construct()
     {
-        // TODO: Get all journal entries.
-        // Add another null espace for today's entry if there's not an entry for
-        // today yet.
-        return view('journal');
+        $this->journalRepository = app(JournalRepository::class);
     }
 
-    public function view()
+    public function list()
     {
-        // TODO: Get a specific journal entry (by id).
-    } 
+        $entry = session()->get('data');
 
-    public function save()
+        if (is_null($entry)) {
+            $user = User::find(Auth::user()->id);
+            $entry = JournalEntry::where([
+                ['user_id', '=', $user->id],
+                ['created_at', 'like',  Carbon::now()->toDateString() . '%']
+            ])->first();
+        }
+
+        return view('journal', compact([
+            'entry'
+        ]));
+    }
+
+    public function show()
     {
-        // TODO: Save today's journal entry.
+        // TODO: Show today's journal entry
+    }
+
+    public function showPreviousEntry(int $entry)
+    {
+        $user = User::find(Auth::user()->id);
+
+        try {
+            $entry = $this->journalRepository->getPreviousJournalEntry($user, $entry);
+            return redirect()->route('journal')->with([ 'data' => $entry ]);
+        } catch (\Exception $e) {
+            return back();
+        }
+    }
+
+    public function showNextEntry(int $entryId)
+    {
+        return $entryId;
+    }
+
+    public function save(Request $request)
+    {
+        print_r($request);
     }
 }

@@ -255,7 +255,40 @@ form input[type=radio]:checked + label > img {
     color: #95f6cd;
 }
 
-@media (max-width: 768px) {
+.textarea-form
+{
+    border: none !important;
+    border-radius: 25px;
+    display: flex !important;
+    font-size: 22px !important;
+    line-height: 50px !important;
+    margin: 2% auto !important;
+    padding: 17px 70px 0 70px !important;
+    resize: none !important;
+    min-height: 689px !important;
+    width: 100% !important;
+    color: #292929 !important;
+
+    background-image: -moz-linear-gradient(top, transparent, transparent 49px, #76c3ff 0px); 
+    background-image: -webkit-linear-gradient(top, transparent, transparent 49px,#76c3ff 0);
+
+    -webkit-background-size: 100% 50px;
+    background-size: 100% 50px;
+    overflow-y: hidden;
+}
+
+input[disabled=disabled]
+{
+    opacity: 25% !important;
+}
+
+.journal-nav-button
+{
+    min-width: fit-content;
+}
+
+@media (max-width: 768px)
+{
     .navigation-bar {
         width: 50px;
     }
