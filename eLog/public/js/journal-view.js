@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', loadTextArea, false);
+document.addEventListener('DOMContentLoaded', journalForm, false);
 
-function loadTextArea(e)
+function journalForm(e)
 {
     let textArea = document.querySelector('.textarea-form');
     textArea.value = textArea.defaultValue.trim();
@@ -9,4 +9,7 @@ function loadTextArea(e)
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
       });
+    
+    let title = document.querySelector('.title-form');
+    title.value = title.defaultValue.trim();
 }

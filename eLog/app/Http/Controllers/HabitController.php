@@ -52,9 +52,24 @@ class HabitController extends Controller
         }
     }
 
-    public function delete()
+    /**
+     * Save a new habit the user wishes to track.
+     *
+     * @param  int $habitId
+     * @return RedirectResponse
+     */
+    public function delete(Request $request, int $habitId): RedirectResponse
     {
-        // TODO: Detele today's habit elog.
+        // We get the logged user.
+        $user = User::find(Auth::user()->id);
+
+        try {
+            // We delete the habit.
+            $this->habitRepository->deleteUserHabit($user, $habitId);
+            return back();
+        } catch (\Exception $e) {
+            return back();
+        }
     }
 
     public function saveHabitLog(Request $request): RedirectResponse

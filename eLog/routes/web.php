@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified', 'web'])->group(function () {
     // Habits
     Route::get('/habits', [HabitController::class, 'list'])->name('habits');
     Route::post('/habit', [HabitController::class, 'save'])->name('habit.save');
-    // Route::delete('/habit', [HabitController::class, 'destroy'])->name('habit.destroy');
+    Route::delete('/habit/{habit_id}', [HabitController::class, 'delete'])->name('habit.delete');
     // Route::post('/habit-logs', [HabitController::class, 'listHabitLogs'])->name('habit-logs');
     Route::post('/habit-log', [HabitController::class, 'saveHabitLog'])->name('habit-log.save');
     Route::delete('/habit-log', [HabitController::class, 'deleteHabitLog'])->name('habit-log.delete');

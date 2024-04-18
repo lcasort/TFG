@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJournalEntryRequest;
 use App\Models\JournalEntry;
 use App\Models\User;
 use App\Repositories\JournalRepository;
@@ -51,13 +52,35 @@ class JournalController extends Controller
         }
     }
 
-    public function showNextEntry(int $entryId)
+    public function showNextEntry(int $entry)
     {
-        return $entryId;
+        $user = User::find(Auth::user()->id);
+
+        try {
+            $entry = $this->journalRepository->getNextJournalEntry($user, $entry);
+            return redirect()->route('journal')->with([ 'data' => $entry ]);
+        } catch (\Exception $e) {
+            return back();
+        }
     }
 
-    public function save(Request $request)
+    public function save(StoreJournalEntryRequest $request)
     {
-        print_r($request);
+        // We get the logged user.
+        $user = User::find(Auth::user()->id);
+
+        // We get the information we want from the request
+        $data = [
+            "title" => $request->title, 
+            "text" => $request->text
+        ];
+
+        try {
+            // We save today's log for the habit.
+            $this->journalRepository->saveUserJournalEntryToday($user, $data);
+            return back();
+        } catch (\Exception $e) {
+            return back();
+        }
     }
 }

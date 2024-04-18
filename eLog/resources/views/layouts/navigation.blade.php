@@ -59,7 +59,7 @@
                         </a>
                     </div>
                     {{-- <div class="w-100 d-none d-md-block"></div> --}}
-                    <div>
+                    <div class="exit-button">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="logout-button" href="{{ route('logout') }}"

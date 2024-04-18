@@ -18,9 +18,9 @@
         method="POST">
         @csrf
         @if($moodToday)
-            @method('patch')
+            @method('PATCH')
         @else
-            @method('post')
+            @method('POST')
         @endif
         
         <fieldset class="mt-6">

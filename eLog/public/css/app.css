@@ -44,6 +44,11 @@
     background-color: #414652;
 }
 
+.exit-button>form
+{
+    margin: 0px !important;
+}
+
 .primary-button
 {
     color: #292929 !important;
@@ -194,6 +199,10 @@
     font-weight: bold;
     font-size: large;
 }
+.habit-title:hover
+{
+    color: red !important;
+}
 
 .add-habit-log
 {
@@ -275,6 +284,22 @@ form input[type=radio]:checked + label > img {
     -webkit-background-size: 100% 50px;
     background-size: 100% 50px;
     overflow-y: hidden;
+}
+.title-form
+{
+    border: none !important;
+    border-radius: 25px !important;
+    display: flex !important;
+    font-size: 22px !important;
+    font-weight: bolder !important;
+    margin: 2% auto !important;
+    line-height: 22px;
+    padding: auto 70px !important;
+    resize: none !important;
+    height: fit-content !important;
+    width: 100% !important;
+    color: white !important;
+    background-color: #292f3d !important;
 }
 
 input[disabled=disabled]

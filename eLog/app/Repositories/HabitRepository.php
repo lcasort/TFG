@@ -191,7 +191,24 @@ class HabitRepository
         UserHabitLog::where([
             ['user_habit_id', '=', $userHabit->id],
             ['date', 'like', Carbon::now()->toDateString()]
-        ])->first()->delete();
+        ])->firstOrFail()->delete();
+    }
+
+    /**
+     * Method that deletes user's habit.
+     *
+     * @param  User $user
+     * @param  string $habitId
+     * @return void
+     */
+    public function deleteUserHabit(User $user, int $habitId): void
+    {
+        $userHabit = UserHabit::where([
+            ['user_id', '=', $user->id],
+            ['id', '=', $habitId]
+        ])->firstOrFail();
+
+        $userHabit->delete();
     }
 
 

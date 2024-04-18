@@ -13,7 +13,7 @@
                     <!-- Previous entry button -->
                     <form action="{{ route('journal.show-prev', ['entry' => $entry->id ?? 0]) }}" method="GET">
                         @csrf
-                        @method('get')
+                        @method('GET')
                         <div class="text-center col-1 journal-nav-button">
                             <input type="submit" class="btn submit-button" value="⫷">
                         </div>
@@ -25,9 +25,9 @@
                     <!-- Next entry button -->
                     <form action="{{ route('journal.show-next', ['entry' => $entry->id ?? 0]) }}" method="GET">
                         @csrf
-                        @method('get')
+                        @method('GET')
                         <div class="text-center col-1 journal-nav-button">
-                            <input type="submit" class="btn submit-button" value="⫸" disabled="{{$entry ? now()->isSameDay($entry->created_at) ? 'disabled' : '' : ''}}">
+                            <input type="submit" class="btn submit-button" value="⫸">
                         </div>
                     </form>
                 </div>
@@ -40,15 +40,22 @@
         <div>
             <form action="{{ route('journal.save') }}" method="POST">
                 @csrf
-                @method('post')
-                <textarea class="textarea-form" name="textarea" placeholder="Write something here...">
+                @method('POST')
+                <input required type="text" class="title-form text-center" name="title" placeholder="TITLE" value=
+                    @if($entry)
+                        {{ trim($entry->title, " \n\r\t\v\x00") }}
+                    @endif
+                >
+                <textarea required class="textarea-form" name="text" placeholder="Write something here...">
                     @if($entry)
                         {{ trim($entry->text, " \n\r\t\v\x00") }}
                     @endif
                 </textarea>
                 <!-- Save button (saves journal entry) -->
                 <div class="text-center mt-3">
-                    <input type="submit" class="btn submit-button" value="Save" disabled="{{$entry ? now()->isSameDay($entry->created_at) ? '' : 'disabled' : ''}}">
+                    @if(is_null($entry) || \Carbon\Carbon::now()->isSameDay($entry->created_at))
+                        <input type="submit" class="btn submit-button" value="Save">
+                    @endif
                 </div>
             </form>
         </div>
