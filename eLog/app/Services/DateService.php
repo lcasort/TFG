@@ -6,6 +6,12 @@ use Carbon\Carbon;
 
 class DateService
 {
+        
+    /**
+     * Returns an array of the days of the month ordered by the starting day.
+     *
+     * @return array
+     */
     public function getDaysofTheWeekOrdered(): array
     {
         $nameFirstDayMonth = Carbon::now()->startOfMonth();
@@ -26,14 +32,14 @@ class DateService
             return ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         }
     }
-
+    
+    /**
+     * Returns the current date formatted to 'Y-m-d'.
+     *
+     * @return string
+     */
     public function getCurrentDate(): string
     {
         return Carbon::now()->format('Y-m-d');
-    }
-
-    public function getStartDateOfCurrentWeek(): string
-    {
-        return Carbon::now()->subDays(6)->format('Y-m-d');
     }
 }
