@@ -104,7 +104,7 @@ class HabitRepository
     }
     
     /**
-     * Method that returns the user's mood with the dates parsed.
+     * Method that returns the user's habits with the dates parsed.
      *
      * @param  User $user
      * @return Collection
@@ -123,7 +123,7 @@ class HabitRepository
     }
     
     /**
-     * Method that returns the moods merged with the corresponding days.
+     * Method that returns the habits merged with the corresponding days.
      *
      * @param  Collection $moods
      * @return array
@@ -145,7 +145,7 @@ class HabitRepository
     }
     
     /**
-     * Methods that saves today's user's mood.
+     * Methods that saves a new habit for the user to track.
      *
      * @param  User $user
      * @param  string $mood
@@ -161,6 +161,13 @@ class HabitRepository
         UserHabit::create($data);
     }
 
+    /**
+     * Methods that saves today's log for the user's habit.
+     *
+     * @param  User $user
+     * @param  string $mood
+     * @return void
+     */
     public function saveUserHabitToday(User $user, int $habit): void
     {
         $userHabit = UserHabit::where([
@@ -175,7 +182,7 @@ class HabitRepository
     }
     
     /**
-     * Method that updates today's user's mood.
+     * Method that deletes today's habit log for the user.
      *
      * @param  User $user
      * @param  string $mood
@@ -209,23 +216,5 @@ class HabitRepository
         ])->firstOrFail();
 
         $userHabit->delete();
-    }
-
-
-    /**
-     * -------------------------------------------------------------------------
-     * PRIVATE METHODS
-     * -------------------------------------------------------------------------
-     */
-
-    /**
-     * Method that returns today's user's mood.
-     *
-     * @param  User $user
-     * @return UserHabit
-     */
-    private function getTodaysUserHabit(User $user): UserHabit
-    {
-        // TODO
     }
 }
