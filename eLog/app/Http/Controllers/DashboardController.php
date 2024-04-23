@@ -35,10 +35,11 @@ class DashboardController extends Controller
     /**
      * Method that sends to the dashboard view the following data:
      * - A randomly selected motivational quote from our DB.
-     * - Six randomly selected meditation videos from our DB.
      * - A summary view of the user's mood for today and the previous 3 days.
      * - A summary view of the user's habits for today.
      * - A suggestion of prompt for the user's journal entry for today. 
+     * - User's journal entry for today.
+     * - User's previous journal entry.
      *
      * @return Factory|View
      */
@@ -49,9 +50,6 @@ class DashboardController extends Controller
 
         // We get a random motivational quote.
         $inspirationalQuote = $this->getRandomMotivationalQuote();
-
-        // We get a 6 random motivation videos.
-        $meditationVideos = $this->getRandomMeditationVideos();
 
         // We get all the possible moods
         $moodOptions = $this->moodRepository->getAllMoods();
@@ -72,7 +70,6 @@ class DashboardController extends Controller
 
         return view('dashboard', compact([
             'inspirationalQuote',
-            'meditationVideos',
             'moodOptions',
             'moodToday',
             'habits',
@@ -98,18 +95,5 @@ class DashboardController extends Controller
     {
         $inspirationalQuote = InspirationalQuote::inRandomOrder()->first();
         return $inspirationalQuote->title;
-    }
-    
-    /**
-     * Method that returns the link for 6 randomly selected meditation videos
-     * from out DB.
-     *
-     * @return string
-     */
-    private function getRandomMeditationVideos(): string
-    {
-        $meditationVideos = MeditationVideo::inRandomOrder()
-            ->take(6)->get()->pluck('link');
-        return $meditationVideos;
     }
 }
