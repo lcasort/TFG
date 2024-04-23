@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Console\View\Components\Factory;
+use Illuminate\Contracts\View\View;
 
 class HabitController extends Controller
 {
@@ -16,14 +18,21 @@ class HabitController extends Controller
     {
         $this->habitRepository = app(HabitRepository::class);
     }
-
-    public function list()
+    
+    /**
+     * Method that sends to the habits view the data of the habits for
+     * the current month and the authorized user.
+     *
+     * @return View|Factory
+     */
+    public function list(): View|Factory
     {
         // We get the logged user.
         $user = User::find(Auth::user()->id);
 
         // We get all the user's habits.
         $habits = $this->habitRepository->getAllUserHabitsLogsForCurrentMonth($user);
+
         return view('habits', compact(['habits']));
     }
     
@@ -33,7 +42,7 @@ class HabitController extends Controller
      * @param  Request $request
      * @return RedirectResponse
      */
-    public function save(Request $request)
+    public function save(Request $request): RedirectResponse
     {
         // We get the logged user.
         $user = User::find(Auth::user()->id);
@@ -53,8 +62,9 @@ class HabitController extends Controller
     }
 
     /**
-     * Save a new habit the user wishes to track.
+     * Delete a habit the user wishes to stop tracking.
      *
+     * @param  Request $request
      * @param  int $habitId
      * @return RedirectResponse
      */
@@ -71,9 +81,16 @@ class HabitController extends Controller
             return back();
         }
     }
-
+    
+    /**
+     * Save a new log for the habit today.
+     *
+     * @param  Request $request
+     * @return RedirectResponse
+     */
     public function saveHabitLog(Request $request): RedirectResponse
     {
+        // We validate the data we receive in the request
         $validator = Validator::make($request->all(), [
             'habit' => 'required|integer|exists:user_habits,id',
         ]);
@@ -94,8 +111,15 @@ class HabitController extends Controller
         }
     }
 
+    /**
+     * Delete a today's log for the habit.
+     *
+     * @param  Request $request
+     * @return RedirectResponse
+     */
     public function deleteHabitLog(Request $request)
     {
+        // We validate the data we receive in the request
         $validator = Validator::make($request->all(), [
             'habit' => 'required|integer|exists:user_habits,id',
         ]);
