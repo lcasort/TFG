@@ -32,7 +32,7 @@ class MoodController extends Controller
      *
      * @return Factory|View
      */
-    public function index(): View
+    public function index(): Factory|View
     {
         // We get the logged user.
         $user = User::find(Auth::user()->id);
@@ -68,8 +68,10 @@ class MoodController extends Controller
      */
     public function save(Request $request): RedirectResponse
     {
+        // We get the logged user.
         $user = User::find(Auth::user()->id);
 
+        // We save the user's mood for today.
         $this->moodRepository->saveUserMood($user, $request->mood);
 
         return back();
@@ -83,8 +85,10 @@ class MoodController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
+        // We get the logged user.
         $user = User::find(Auth::user()->id);
 
+        // We update the user's mood for today.
         $this->moodRepository->updateUserMood($user, $request->mood);
 
         return back();
