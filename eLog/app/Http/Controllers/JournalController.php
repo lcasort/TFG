@@ -10,8 +10,9 @@ use App\Repositories\JournalRepository;
 use Carbon\Carbon;
 use Illuminate\Console\View\Components\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Redirector;
+use Illuminate\Http\RedirectResponse;
 
 class JournalController extends Controller
 {
@@ -22,8 +23,15 @@ class JournalController extends Controller
         $this->journalRepository = app(JournalRepository::class);
         $this->prompts = Prompt::all();
     }
-
-    public function list(): View|Factory
+    
+    /**
+     * Method that sends to the journal view the data of the journal entry
+     * (today's if there's no entry in the element 'data' of the session) and
+     * a collection of possible journaling prompts.
+     *
+     * @return View|Factory
+     */
+    public function show(): View|Factory
     {
         $entry = session()->get('data');
 
@@ -42,13 +50,18 @@ class JournalController extends Controller
             'prompts'
         ]));
     }
-
-    public function show()
-    {
-        // TODO: Show today's journal entry
-    }
-
-    public function showPreviousEntry(int $entry)
+    
+    /**
+     * Method that calls the journal view with the previous journal entry
+     * (to the current one) in the 'data' element of the session.
+     * 
+     * If any exception is raise while trying to get the previous journal entry,
+     * we will be returned to the previous page.
+     *
+     * @param  int $entry
+     * @return Redirector|RedirectResponse
+     */
+    public function showPreviousEntry(int $entry): Redirector|RedirectResponse
     {
         $user = User::find(Auth::user()->id);
 
@@ -59,8 +72,18 @@ class JournalController extends Controller
             return back();
         }
     }
-
-    public function showNextEntry(int $entry)
+    
+    /**
+     * Method that calls the journal view with the next journal entry
+     * (to the current one) in the 'data' element of the session.
+     * 
+     * If any exception is raise while trying to get the next journal entry,
+     * we will be returned to the previous page.
+     *
+     * @param  int $entry
+     * @return Redirector|RedirectResponse
+     */
+    public function showNextEntry(int $entry): Redirector|RedirectResponse
     {
         $user = User::find(Auth::user()->id);
 
@@ -71,8 +94,14 @@ class JournalController extends Controller
             return back();
         }
     }
-
-    public function save(StoreJournalEntryRequest $request)
+    
+    /**
+     * Save today's journal entry for the authorized user.
+     *
+     * @param  StoreJournalEntryRequest $request
+     * @return RedirectResponse
+     */
+    public function save(StoreJournalEntryRequest $request): RedirectResponse
     {
         // We get the logged user.
         $user = User::find(Auth::user()->id);
@@ -87,6 +116,33 @@ class JournalController extends Controller
         try {
             // We save today's log for the habit.
             $this->journalRepository->saveUserJournalEntryToday($user, $data);
+            return back();
+        } catch (\Exception $e) {
+            return back();
+        }
+    }
+
+    /**
+     * Updates today's journal entry for the authorized user.
+     *
+     * @param  StoreJournalEntryRequest $request
+     * @return RedirectResponse
+     */
+    public function update(StoreJournalEntryRequest $request): RedirectResponse
+    {
+        // We get the logged user.
+        $user = User::find(Auth::user()->id);
+
+        // We get the information we want from the request
+        $data = [
+            "title" => $request->title, 
+            "text" => $request->text,
+            "prompt_id" => $request->prompt
+        ];
+
+        try {
+            // We save today's log for the habit.
+            $this->journalRepository->updateUserJournalEntryToday($user, $data);
             return back();
         } catch (\Exception $e) {
             return back();

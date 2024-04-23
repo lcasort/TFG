@@ -49,11 +49,11 @@ Route::middleware(['auth', 'verified', 'web'])->group(function () {
     Route::delete('/habit-log', [HabitController::class, 'deleteHabitLog'])->name('habit-log.delete');
 
     // Journal
-    Route::get('/journal-entries/{entry?}', [JournalController::class, 'list'])->name('journal');
-    Route::get('/journal-entry', [JournalController::class, 'show'])->name('journal.show');
+    Route::get('/journal-entries/{entry?}', [JournalController::class, 'show'])->name('journal');
     Route::get('/journal-entry/{entry}/prev', [JournalController::class, 'showPreviousEntry'])->name('journal.show-prev');
     Route::get('/journal-entry/{entry}/next', [JournalController::class, 'showNextEntry'])->name('journal.show-next');
-    Route::post('/journal-entries', [JournalController::class, 'save'])->name('journal.save');
+    Route::post('/journal-entry', [JournalController::class, 'save'])->name('journal.save');
+    Route::patch('/journal-entry/update', [JournalController::class, 'update'])->name('journal.update');
 });
 
 require __DIR__.'/auth.php';

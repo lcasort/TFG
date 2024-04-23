@@ -46,25 +46,26 @@ class JournalRepository
 
     public function saveUserJournalEntryToday(User $user, array $data): void
     {
+        JournalEntry::create([
+            "user_id" => $user->id,
+            "prompt_id" => $data['prompt_id'] ?? null,
+            "title" => $data['title'],
+            "text" => $data['text']
+        ]);
+    }
+
+    public function updateUserJournalEntryToday(User $user, array $data): void
+    {
         $entry = JournalEntry::where([
             ['user_id', '=', $user->id],
             ['created_at', 'like', now()->toDateString() . '%']
-        ]);
+        ])->firstOrFail();
 
-        if($entry->first()) {
-            $entry->update([
-                "prompt_id" => $data['prompt_id'] ?? null,
-                "title" => $data['title'],
-                "text" => $data['text']
-            ]);
-        } else {
-            JournalEntry::create([
-                "user_id" => $user->id,
-                "prompt_id" => $data['prompt_id'] ?? null,
-                "title" => $data['title'],
-                "text" => $data['text']
-            ]);
-        }
+        $entry->update([
+            "prompt_id" => $data['prompt_id'] ?? null,
+            "title" => $data['title'],
+            "text" => $data['text']
+        ]);
     }
 
     public function getRandomJournalingPrompt(): Prompt

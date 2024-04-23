@@ -38,9 +38,13 @@
         </div>
         <!-- Input space to write journal entry -->
         <div>
-            <form action="{{ route('journal.save') }}" method="POST">
+            <form action="{{ is_null($entry) ? route('journal.save') : route('journal.update') }}" method="POST">
                 @csrf
-                @method('POST')
+                @if(is_null($entry))
+                    @method('POST')
+                @else
+                    @method('PATCH')
+                @endif
                 <input required type="text" class="title-form text-center" name="title" placeholder="TITLE" value="
                     @if($entry)
                         {{ trim($entry->title, " \n\r\t\v\x00") }}
