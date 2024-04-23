@@ -22,7 +22,7 @@ class StoreJournalEntryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "prompt" => "integer|nullable|exists:prompts,id"
         ];
     }
 

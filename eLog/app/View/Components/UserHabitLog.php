@@ -16,7 +16,6 @@ class UserHabitLog extends Component
     public function __construct(Collection $habits)
     {
         $this->habits = $habits;
-        $this->habits = $habits;
     }
 
     /**

@@ -95,7 +95,7 @@
 }
 .page-card-body
 {
-    background-color: #414652;
+    background-color: #292f3d;
     border-radius: 20px;
 }
 
@@ -310,6 +310,16 @@ input[disabled=disabled]
 .journal-nav-button
 {
     min-width: fit-content;
+}
+
+.prompt-picker
+{
+    border-radius: 10px !important;
+}
+
+.journal-preview-date
+{
+    font-weight: bolder;
 }
 
 @media (max-width: 768px)

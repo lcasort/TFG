@@ -33,12 +33,11 @@
                 <div class="page-card col-lg p-0">
                     <div class="page-card-title mb-2">{{ 'JOURNAL' }}</div>
                     <div class="page-card-body">
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek<br />
-                        muxotextonosek
+                        <x-journal-preview
+                            :prompt=$prompt
+                            :todaysEntry=$todaysEntry
+                            :prevEntry=$prevEntry
+                        />
                     </div>
                 </div>
             </div>

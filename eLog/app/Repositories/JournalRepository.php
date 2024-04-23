@@ -3,11 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\JournalEntry;
+use App\Models\Prompt;
 use App\Models\User;
 
 class JournalRepository
 {
-    public function getPreviousJournalEntry(User $user, int $entryId): JournalEntry
+    public function getPreviousJournalEntry(User $user, int $entryId): JournalEntry|null
     {
         $entry = null;
         if ($entryId !== 0) {
@@ -64,5 +65,31 @@ class JournalRepository
                 "text" => $data['text']
             ]);
         }
+    }
+
+    public function getRandomJournalingPrompt(): Prompt
+    {
+        $prompt = Prompt::inRandomOrder()->first();
+        return $prompt;
+    }
+
+    public function getUserLastJournalEntry(User $user): JournalEntry|null
+    {
+        $entry = JournalEntry::where([
+                ['user_id', '=', $user->id],
+                ['updated_at', '<=', now()->subDay()->toDateString()]
+            ])->with(['prompt'])->orderByDesc('updated_at')->first();
+
+        return $entry;
+    }
+
+    public function getUserTodayJournalEntry(User $user): JournalEntry|null
+    {
+        $entry = JournalEntry::where([
+                ['user_id', '=', $user->id],
+                ['updated_at', 'like', now()->toDateString().'%']
+            ])->with(['prompt'])->orderByDesc('updated_at')->first();
+
+        return $entry;
     }
 }

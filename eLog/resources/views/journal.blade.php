@@ -41,11 +41,21 @@
             <form action="{{ route('journal.save') }}" method="POST">
                 @csrf
                 @method('POST')
-                <input required type="text" class="title-form text-center" name="title" placeholder="TITLE" value=
+                <input required type="text" class="title-form text-center" name="title" placeholder="TITLE" value="
                     @if($entry)
                         {{ trim($entry->title, " \n\r\t\v\x00") }}
                     @endif
-                >
+                ">
+                <select class="prompt-picker form-select w-100" name="prompt">
+                    <option value="">Select a prompt</option>
+                    @foreach ($prompts as $prompt)
+                        @if ($entry && $entry->prompt_id === $prompt->id)
+                            <option value="{{ $prompt->id }}" selected>{{ $prompt->text }}</option>
+                        @else
+                            <option value="{{ $prompt->id }}">{{ $prompt->text }}</option>
+                        @endif
+                    @endforeach
+                  </select>
                 <textarea required class="textarea-form" name="text" placeholder="Write something here...">
                     @if($entry)
                         {{ trim($entry->text, " \n\r\t\v\x00") }}

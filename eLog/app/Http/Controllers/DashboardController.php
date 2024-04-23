@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\InspirationalQuote;
 use App\Models\MeditationVideo;
 use App\Repositories\HabitRepository;
+use App\Repositories\JournalRepository;
 use App\Repositories\MoodRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,10 +17,12 @@ class DashboardController extends Controller
 {
     protected MoodRepository $moodRepository;
     protected HabitRepository $habitRepository;
+    protected JournalRepository $journalRepository;
     public function __construct()
     {
         $this->moodRepository = app(MoodRepository::class);
         $this->habitRepository = app(HabitRepository::class);
+        $this->journalRepository = app(JournalRepository::class);
     }
 
 
@@ -35,7 +38,7 @@ class DashboardController extends Controller
      * - Six randomly selected meditation videos from our DB.
      * - A summary view of the user's mood for today and the previous 3 days.
      * - A summary view of the user's habits for today.
-     * - A summary view of the user's journal entry for today. 
+     * - A suggestion of prompt for the user's journal entry for today. 
      *
      * @return Factory|View
      */
@@ -60,12 +63,22 @@ class DashboardController extends Controller
         // We get the user's habits
         $habits = $this->habitRepository->getAllUserHabitsForCurrentWeek($user);
 
+        // We get a random journal prompts
+        $prompt = $this->journalRepository->getRandomJournalingPrompt();
+        // We get the user's last journal entry (today's)
+        $todaysEntry = $this->journalRepository->getUserTodayJournalEntry($user);
+        // We get the user's previous journal entry
+        $prevEntry = $this->journalRepository->getUserLastJournalEntry($user);
+
         return view('dashboard', compact([
             'inspirationalQuote',
             'meditationVideos',
             'moodOptions',
             'moodToday',
-            'habits'
+            'habits',
+            'prompt',
+            'todaysEntry',
+            'prevEntry'
         ]));
     }
 

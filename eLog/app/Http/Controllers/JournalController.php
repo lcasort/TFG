@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJournalEntryRequest;
 use App\Models\JournalEntry;
+use App\Models\Prompt;
 use App\Models\User;
 use App\Repositories\JournalRepository;
 use Carbon\Carbon;
+use Illuminate\Console\View\Components\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class JournalController extends Controller
 {
     protected JournalRepository $journalRepository;
+    protected \Illuminate\Database\Eloquent\Collection $prompts;
     public function __construct()
     {
         $this->journalRepository = app(JournalRepository::class);
+        $this->prompts = Prompt::all();
     }
 
-    public function list()
+    public function list(): View|Factory
     {
         $entry = session()->get('data');
 
@@ -30,8 +35,11 @@ class JournalController extends Controller
             ])->first();
         }
 
+        $prompts = $this->prompts;
+
         return view('journal', compact([
-            'entry'
+            'entry',
+            'prompts'
         ]));
     }
 
@@ -72,7 +80,8 @@ class JournalController extends Controller
         // We get the information we want from the request
         $data = [
             "title" => $request->title, 
-            "text" => $request->text
+            "text" => $request->text,
+            "prompt_id" => $request->prompt
         ];
 
         try {
