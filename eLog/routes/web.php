@@ -45,7 +45,6 @@ Route::middleware(['auth', 'verified', 'web'])->group(function () {
     Route::get('/habits', [HabitController::class, 'list'])->name('habits');
     Route::post('/habit', [HabitController::class, 'save'])->name('habit.save');
     Route::delete('/habit/{habit_id}', [HabitController::class, 'delete'])->name('habit.delete');
-    // Route::post('/habit-logs', [HabitController::class, 'listHabitLogs'])->name('habit-logs');
     Route::post('/habit-log', [HabitController::class, 'saveHabitLog'])->name('habit-log.save');
     Route::delete('/habit-log', [HabitController::class, 'deleteHabitLog'])->name('habit-log.delete');
 
@@ -54,7 +53,6 @@ Route::middleware(['auth', 'verified', 'web'])->group(function () {
     Route::get('/journal-entry', [JournalController::class, 'show'])->name('journal.show');
     Route::get('/journal-entry/{entry}/prev', [JournalController::class, 'showPreviousEntry'])->name('journal.show-prev');
     Route::get('/journal-entry/{entry}/next', [JournalController::class, 'showNextEntry'])->name('journal.show-next');
-    // Route::get('/journal-entries', [JournalController::class, 'list'])->name('habits');
     Route::post('/journal-entries', [JournalController::class, 'save'])->name('journal.save');
 });
 
