@@ -41,12 +41,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Meditation video recommendations -->
-            {{-- <div class="row p-0 m-0">
-                @foreach ($meditationVideos as $video)
-                    {{ $video }}
-                @endforeach
-            </div> --}}
         </div>
     </div>
 </x-app-layout>
