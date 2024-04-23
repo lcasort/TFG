@@ -71,10 +71,13 @@ class MoodController extends Controller
         // We get the logged user.
         $user = User::find(Auth::user()->id);
 
-        // We save the user's mood for today.
-        $this->moodRepository->saveUserMood($user, $request->mood);
-
-        return back();
+        try {
+            // We save the user's mood for today.
+            $this->moodRepository->saveUserMood($user, $request->mood);
+            return back();
+        } catch (\Exception $e) {
+            return back();
+        }
     }
     
     /**
@@ -88,9 +91,12 @@ class MoodController extends Controller
         // We get the logged user.
         $user = User::find(Auth::user()->id);
 
-        // We update the user's mood for today.
-        $this->moodRepository->updateUserMood($user, $request->mood);
-
-        return back();
+        try {
+            // We update the user's mood for today.
+            $this->moodRepository->updateUserMood($user, $request->mood);
+            return back();
+        } catch (\Exception $e) {
+            return back();
+        }
     }
 }
