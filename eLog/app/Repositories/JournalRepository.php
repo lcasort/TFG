@@ -46,12 +46,20 @@ class JournalRepository
 
     public function saveUserJournalEntryToday(User $user, array $data): void
     {
-        JournalEntry::create([
-            "user_id" => $user->id,
-            "prompt_id" => $data['prompt_id'] ?? null,
-            "title" => $data['title'],
-            "text" => $data['text']
-        ]);
+        $entry = JournalEntry::where([
+            ['user_id', '=', $user->id],
+            ['created_at', 'like', now()->toDateString() . '%']
+        ])->first();
+
+        if(is_null($entry))
+        {
+            JournalEntry::create([
+                "user_id" => $user->id,
+                "prompt_id" => $data['prompt_id'] ?? null,
+                "title" => $data['title'],
+                "text" => $data['text']
+            ]);
+        }
     }
 
     public function updateUserJournalEntryToday(User $user, array $data): void
