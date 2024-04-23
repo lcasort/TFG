@@ -7,7 +7,15 @@ use App\Models\Prompt;
 use App\Models\User;
 
 class JournalRepository
-{
+{    
+    /**
+     * Returns the user's previous journal entry to the current one.
+     * If it doesn't exist, it returns null.
+     *
+     * @param  User $user
+     * @param  int $entryId
+     * @return JournalEntry|null
+     */
     public function getPreviousJournalEntry(User $user, int $entryId): JournalEntry|null
     {
         $entry = null;
@@ -25,7 +33,15 @@ class JournalRepository
 
         return $prevEntry ?? $entry;
     }
-
+    
+    /**
+     * Returns the user's next journal entry to the current one.
+     * If it doesn't exist, it returns null.
+     *
+     * @param  User $user
+     * @param  int $entryId
+     * @return JournalEntry
+     */
     public function getNextJournalEntry(User $user, int $entryId): JournalEntry|null
     {
         $entry = null;
@@ -43,7 +59,14 @@ class JournalRepository
 
         return $nextEntry;
     }
-
+    
+    /**
+     * Save today's journal entry for the authenticated user.
+     *
+     * @param  User $user
+     * @param  array $data
+     * @return void
+     */
     public function saveUserJournalEntryToday(User $user, array $data): void
     {
         $entry = JournalEntry::where([
@@ -61,7 +84,14 @@ class JournalRepository
             ]);
         }
     }
-
+    
+    /**
+     * Update today's journal entry for the authenticated user.
+     *
+     * @param  User $user
+     * @param  array $data
+     * @return void
+     */
     public function updateUserJournalEntryToday(User $user, array $data): void
     {
         $entry = JournalEntry::where([
@@ -75,23 +105,25 @@ class JournalRepository
             "text" => $data['text']
         ]);
     }
-
+    
+    /**
+     * Returns a random journaling prompt.
+     *
+     * @return Prompt
+     */
     public function getRandomJournalingPrompt(): Prompt
     {
         $prompt = Prompt::inRandomOrder()->first();
         return $prompt;
     }
-
-    public function getUserLastJournalEntry(User $user): JournalEntry|null
-    {
-        $entry = JournalEntry::where([
-                ['user_id', '=', $user->id],
-                ['updated_at', '<=', now()->subDay()->toDateString()]
-            ])->with(['prompt'])->orderByDesc('updated_at')->first();
-
-        return $entry;
-    }
-
+    
+    /**
+     * Returns user's journal entry for today if it exists.
+     * If it doesn't, it returns null.
+     *
+     * @param  User $user
+     * @return JournalEntry
+     */
     public function getUserTodayJournalEntry(User $user): JournalEntry|null
     {
         $entry = JournalEntry::where([

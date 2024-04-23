@@ -66,7 +66,7 @@ class DashboardController extends Controller
         // We get the user's last journal entry (today's)
         $todaysEntry = $this->journalRepository->getUserTodayJournalEntry($user);
         // We get the user's previous journal entry
-        $prevEntry = $this->journalRepository->getUserLastJournalEntry($user);
+        $prevEntry = $this->journalRepository->getPreviousJournalEntry($user, 0);
 
         return view('dashboard', compact([
             'inspirationalQuote',
