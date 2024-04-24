@@ -33,16 +33,18 @@ class JournalController extends Controller
      */
     public function show(): View|Factory
     {
+        // We check if there's any entry in the 'data' element of the session
         $entry = session()->get('data');
 
+        // If there's not we get today's entry
         if (is_null($entry)) {
+            // We get the logged user
             $user = User::find(Auth::user()->id);
-            $entry = JournalEntry::where([
-                ['user_id', '=', $user->id],
-                ['created_at', 'like',  Carbon::now()->toDateString() . '%']
-            ])->first();
+            // We get the user's journal entry for today
+            $entry = $this->journalRepository->getUserTodayJournalEntry($user);
         }
 
+        // We get all the journaling prompts
         $prompts = $this->prompts;
 
         return view('journal', compact([
@@ -63,9 +65,11 @@ class JournalController extends Controller
      */
     public function showPreviousEntry(int $entry): Redirector|RedirectResponse
     {
+        // We get the logged user
         $user = User::find(Auth::user()->id);
 
         try {
+            // We get the previous journal entry to $entry
             $entry = $this->journalRepository->getPreviousJournalEntry($user, $entry);
             return redirect()->route('journal')->with([ 'data' => $entry ]);
         } catch (\Exception $e) {
@@ -85,9 +89,11 @@ class JournalController extends Controller
      */
     public function showNextEntry(int $entry): Redirector|RedirectResponse
     {
+        // We get the logged user
         $user = User::find(Auth::user()->id);
 
         try {
+            // We get the next journal entry to $entry
             $entry = $this->journalRepository->getNextJournalEntry($user, $entry);
             return redirect()->route('journal')->with([ 'data' => $entry ]);
         } catch (\Exception $e) {
@@ -103,7 +109,7 @@ class JournalController extends Controller
      */
     public function save(StoreJournalEntryRequest $request): RedirectResponse
     {
-        // We get the logged user.
+        // We get the logged user
         $user = User::find(Auth::user()->id);
 
         // We get the information we want from the request
@@ -114,7 +120,7 @@ class JournalController extends Controller
         ];
 
         try {
-            // We save today's log for the habit.
+            // We save today's journal entry
             $this->journalRepository->saveUserJournalEntryToday($user, $data);
             return back();
         } catch (\Exception $e) {
@@ -130,7 +136,7 @@ class JournalController extends Controller
      */
     public function update(StoreJournalEntryRequest $request): RedirectResponse
     {
-        // We get the logged user.
+        // We get the logged user
         $user = User::find(Auth::user()->id);
 
         // We get the information we want from the request
@@ -141,7 +147,7 @@ class JournalController extends Controller
         ];
 
         try {
-            // We save today's log for the habit.
+            // We update today's journal log
             $this->journalRepository->updateUserJournalEntryToday($user, $data);
             return back();
         } catch (\Exception $e) {

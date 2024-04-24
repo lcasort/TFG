@@ -28,7 +28,7 @@ class JournalRepository
 
         $prevEntry = JournalEntry::where([
             ['user_id', '=', $user->id],
-            ['created_at', '<=', $entry ? $entry->created_at->subDay()->toDateString() : now()->subDay()->toDateString()]
+            ['created_at', '<=', $entry ? $entry->created_at->toDateString() : now()->toDateString()]
         ])->orderByDesc('created_at')->first();
 
         return $prevEntry ?? $entry;

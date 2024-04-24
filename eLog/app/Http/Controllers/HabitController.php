@@ -132,7 +132,7 @@ class HabitController extends Controller
         $user = User::find(Auth::user()->id);
 
         try {
-            // We save today's log for the habit.
+            // We delete today's log for the habit.
             $this->habitRepository->deleteUserHabitToday($user, $request->habit);
             return back();
         } catch (\Exception $e) {
