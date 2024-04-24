@@ -19,6 +19,8 @@ class JournalRepository
     public function getPreviousJournalEntry(User $user, int $entryId): JournalEntry|null
     {
         $entry = null;
+        // If we get a $entryId different from 0, we try to get
+        // the journal entry with that id of the $user
         if ($entryId !== 0) {
             $entry = JournalEntry::where([
                 ['id', '=', $entryId],
@@ -26,6 +28,7 @@ class JournalRepository
             ])->firstOrFail();
         }
 
+        // We get the previous journal entry
         $prevEntry = JournalEntry::where([
             ['user_id', '=', $user->id],
             ['created_at', '<=', $entry ? $entry->created_at->toDateString() : now()->toDateString()]
@@ -45,6 +48,8 @@ class JournalRepository
     public function getNextJournalEntry(User $user, int $entryId): JournalEntry|null
     {
         $entry = null;
+        // If we get a $entryId different from 0, we try to get
+        // the journal entry with that id of the $user
         if ($entryId !== 0) {
             $entry = JournalEntry::where([
                 ['id', '=', $entryId],
@@ -52,10 +57,11 @@ class JournalRepository
             ])->firstOrFail();
         }
 
+        // We get the next journal entry
         $nextEntry = JournalEntry::where([
             ['user_id', '=', $user->id],
             ['created_at', '>=', $entry ? $entry->created_at->addDay()->toDateString() : now()->addDay()->toDateString()]
-        ])->orderBy('created_at')->firstOrFail();
+        ])->orderBy('created_at')->first();
 
         return $nextEntry;
     }
@@ -69,11 +75,13 @@ class JournalRepository
      */
     public function saveUserJournalEntryToday(User $user, array $data): void
     {
+        // We get today's journal entry for the user
         $entry = JournalEntry::where([
             ['user_id', '=', $user->id],
             ['created_at', 'like', now()->toDateString() . '%']
         ])->first();
 
+        // If it doesn't already exist, we create it
         if(is_null($entry))
         {
             JournalEntry::create([
@@ -94,11 +102,13 @@ class JournalRepository
      */
     public function updateUserJournalEntryToday(User $user, array $data): void
     {
+        // We get today's journal entry for the user
         $entry = JournalEntry::where([
             ['user_id', '=', $user->id],
             ['created_at', 'like', now()->toDateString() . '%']
         ])->firstOrFail();
 
+        // We update it
         $entry->update([
             "prompt_id" => $data['prompt_id'] ?? null,
             "title" => $data['title'],
