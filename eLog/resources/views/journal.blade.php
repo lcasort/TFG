@@ -1,41 +1,42 @@
+<!-- Script import -->
 <script src="js/journal-view.js"></script>
+
 <x-app-layout>
+    <!-- Header -->
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
             {{ __('Journal') }}
         </h2>
     </x-slot>
 
+    <!-- Main content container -->
     <div class="py-12 main-page-container">
         <!-- Navigation bar for journal entries -->
         <div>
-                <div class="d-flex flex-row w-100">
-                    <!-- Previous entry button -->
-                    <form action="{{ route('journal.show-prev', ['entry' => $entry->id ?? 0]) }}" method="GET">
-                        @csrf
-                        @method('GET')
-                        <div class="text-center col-1 journal-nav-button">
-                            <input type="submit" class="btn submit-button" value="⫷">
-                        </div>
-                    </form>
-                    <!-- Date -->
-                    <div class="d-flex col text-center text-xl text-gray-900 dark:text-gray-200 leading-tight text-break justify-content-center align-items-center">
-                        {{ $entry ? strtoupper($entry->created_at->toFormattedDateString()) : now()->toFormattedDateString() }}
+            <div class="d-flex flex-row w-100">
+                <!-- Previous entry button -->
+                <form action="{{ route('journal.show-prev', ['entry' => $entry->id ?? 0]) }}" method="GET">
+                    @csrf
+                    @method('GET')
+                    <div class="text-center col-1 journal-nav-button">
+                        <input type="submit" class="btn submit-button" value="⫷">
                     </div>
-                    <!-- Next entry button -->
-                    <form action="{{ route('journal.show-next', ['entry' => $entry->id ?? 0]) }}" method="GET">
-                        @csrf
-                        @method('GET')
-                        <div class="text-center col-1 journal-nav-button">
-                            <input type="submit" class="btn submit-button" value="⫸">
-                        </div>
-                    </form>
+                </form>
+                <!-- Date -->
+                <div class="d-flex col text-center text-xl text-gray-900 dark:text-gray-200 leading-tight text-break justify-content-center align-items-center">
+                    {{ $entry ? strtoupper($entry->created_at->toFormattedDateString()) : now()->toFormattedDateString() }}
                 </div>
-            </form>
-            
-            
-            
+                <!-- Next entry button -->
+                <form action="{{ route('journal.show-next', ['entry' => $entry->id ?? 0]) }}" method="GET">
+                    @csrf
+                    @method('GET')
+                    <div class="text-center col-1 journal-nav-button">
+                        <input type="submit" class="btn submit-button" value="⫸">
+                    </div>
+                </form>
+            </div>
         </div>
+
         <!-- Input space to write journal entry -->
         <div>
             <form action="{{ is_null($entry) ? route('journal.save') : route('journal.update') }}" method="POST">
@@ -45,11 +46,14 @@
                 @else
                     @method('PATCH')
                 @endif
+
+                <!-- Title for the journal entry -->
                 <input required type="text" class="title-form text-center" name="title" placeholder="TITLE" value="
                     @if($entry)
                         {{ trim($entry->title, " \n\r\t\v\x00") }}
                     @endif
                 ">
+                <!-- Prompt for the journal entry -->
                 <select class="prompt-picker form-select w-100" name="prompt">
                     <option value="">Select a prompt</option>
                     @foreach ($prompts as $prompt)
@@ -59,7 +63,8 @@
                             <option value="{{ $prompt->id }}">{{ $prompt->text }}</option>
                         @endif
                     @endforeach
-                  </select>
+                </select>
+                <!-- Text for the journal entry -->
                 <textarea required class="textarea-form" name="text" placeholder="Write something here...">
                     @if($entry)
                         {{ trim($entry->text, " \n\r\t\v\x00") }}
