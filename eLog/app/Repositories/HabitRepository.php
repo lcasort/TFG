@@ -37,6 +37,7 @@ class HabitRepository
      */
     public function getAllUserHabitsForCurrentWeek(User $user): Collection
     {
+        // We get all the user's habit and logs
         $userHabits = $user->userHabits()->with(['logs'])->get()->each(
             function ($habit) {
                 return $habit->logs->map(
@@ -49,11 +50,15 @@ class HabitRepository
         );
 
         $res = [];
+        // We iterate through every habit
         foreach ($userHabits as $habit) {
             $logs = [];
             $endOfWeek = Carbon::now()->endOfWeek();
             $day = Carbon::now()->startOfWeek();
+            // We iterate through the days of the week
             while ($day->lte($endOfWeek)) {
+                // If there's a log for said date, we saver 'true' in $logs
+                // Else, we save false
                 if ($habit->logs->where('date', $day->toDateString())->first()) {
                     array_push($logs, true);
                 } else {
@@ -61,8 +66,10 @@ class HabitRepository
                 }
                 $day->addDay();
             }
+            // We save the user's $logs for the $habit
             $res[$habit->name] = ["id" => $habit->id, "logs" => $logs];
         }
+
         return collect($res);
     }
 
@@ -74,10 +81,12 @@ class HabitRepository
      */
     public function getAllUserHabitsLogsForCurrentMonth(User $user): Collection
     {
+        // We get all the user's habit and logs
         $userHabits = $user->userHabits()->with(['logs'])->get()->each(
             function ($habit) {
                 return $habit->logs->map(
                     function ($log) {
+                        // We format the dates of the logs
                         $log->date = Carbon::parse($log->updated_at)->toDateString();
                         return $log;
                     }
@@ -85,12 +94,17 @@ class HabitRepository
             }
         );
 
+        
         $res = [];
+        // We iterate through every habit
         foreach ($userHabits as $habit) {
             $logs = [];
             $endOfMonth = Carbon::now()->endOfMonth();
             $day = Carbon::now()->startOfMonth();
+            // We iterate through the days of the month
             while ($day->lte($endOfMonth)) {
+                // If there's a log for said date, we saver 'true' in $logs
+                // Else, we save false
                 if ($habit->logs->where('date', $day->toDateString())->first()) {
                     array_push($logs, true);
                 } else {
@@ -98,50 +112,11 @@ class HabitRepository
                 }
                 $day->addDay();
             }
+            // We save the user's $logs for the $habit
             $res[$habit->name] = ["id" => $habit->id, "logs" => $logs];
         }
+
         return collect($res);
-    }
-    
-    /**
-     * Method that returns the user's habits with the dates parsed.
-     *
-     * @param  User $user
-     * @return Collection
-     */
-    public function getUserHabitsWithParsedDate(User $user): Collection
-    {
-        $moods = $user->userMoods()->with(['mood'])->get()->map(
-            function ($mood)
-            {
-                $mood->date = Carbon::parse($mood->created_at)->format('Y-m-d');
-                return $mood;
-            }
-        );
-
-        return $moods;
-    }
-    
-    /**
-     * Method that returns the habits merged with the corresponding days.
-     *
-     * @param  Collection $moods
-     * @return array
-     */
-    public function mergeHabitsAndDays(Collection $moods): array
-    {
-        $endOfMonth = Carbon::now()->endOfMonth();
-        $startOfMonth = Carbon::now()->startOfMonth();
-
-        $moodsByDate = [];
-        for ($i = 0; $i < $endOfMonth->day; $i++)
-        {
-            $date = Carbon::parse($startOfMonth)->addDays($i)->format('Y-m-d');
-            $mood = $moods->where('date', 'like', $date)->first();
-            $moodsByDate[$date] = $mood;
-        }
-
-        return $moodsByDate;
     }
     
     /**
@@ -153,11 +128,13 @@ class HabitRepository
      */
     public function saveUserHabit(User $user, string $habit): void
     {
+        // We get the data for the new user habit
         $data = [
             'user_id' => $user->id,
             'name' => $habit,
         ];
-        
+
+        // We save it
         UserHabit::create($data);
     }
 
@@ -170,11 +147,13 @@ class HabitRepository
      */
     public function saveUserHabitToday(User $user, int $habit): void
     {
+        // We try to get the user's habit
         $userHabit = UserHabit::where([
             ['user_id', '=', $user->id],
             ['id', '=', $habit]
         ])->firstOrFail();
-        
+
+        // We save a new habit log for the user today in said habit
         UserHabitLog::create([
             'user_habit_id' => $userHabit->id,
             'date' => Carbon::now()->toDate()
@@ -190,11 +169,13 @@ class HabitRepository
      */
     public function deleteUserHabitToday(User $user, int $habit): void
     {
+        // We try to get the user's habit
         $userHabit = UserHabit::where([
             ['user_id', '=', $user->id],
             ['id', '=', $habit]
         ])->firstOrFail();
-        
+
+        // We try to get the user's habit log for today and delete it
         UserHabitLog::where([
             ['user_habit_id', '=', $userHabit->id],
             ['date', 'like', Carbon::now()->toDateString()]
@@ -210,11 +191,13 @@ class HabitRepository
      */
     public function deleteUserHabit(User $user, int $habitId): void
     {
+        // We try to get the user's habit
         $userHabit = UserHabit::where([
             ['user_id', '=', $user->id],
             ['id', '=', $habitId]
         ])->firstOrFail();
 
+        // We delete it
         $userHabit->delete();
     }
 }
