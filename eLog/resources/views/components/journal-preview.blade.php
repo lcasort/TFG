@@ -8,7 +8,7 @@
     @if (!is_null($prevEntry))
         <div class="row flex-column m-0 pb-6 justify-content-center border-bottom border-light">
             <p class="text-center text-lg mt-3">Your last journal entry was on</p>
-            <p class="journal-preview-date text-center justify-content-center text-xl text-gray-900 dark:text-gray-200 leading-tight text-break">
+            <p class="journal-preview-date text-center justify-content-center text-xl text-gray-200 leading-tight text-break">
                 {{ $prevEntry->updated_at->format('d F Y') }}
             </p>
             <div class="d-flex justify-content-center my-3">
