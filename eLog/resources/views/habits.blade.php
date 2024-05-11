@@ -4,7 +4,7 @@
 <x-app-layout>
     <!-- Header -->
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight text-center">
             {{ __('Habits') }}
         </h2>
     </x-slot>
@@ -22,7 +22,7 @@
                         @csrf
 
                         <fieldset>
-                            <legend class="text-center mb-2 text-gray-800 dark:text-gray-200 leading-tight text-break">
+                            <legend class="text-center mb-2 text-gray-200 leading-tight text-break">
                                 Want to track a new habit?
                             </legend>
                             <div class="d-flex flex-wrap justify-content-center mt-3">

@@ -34,7 +34,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        <div class="relative w-100 sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-gray-100 dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+        <div class="relative w-100 sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-gray-900 selection:bg-red-500 selection:text-white">
             <div class="main max-w-7xl pt-6 lg:pt-8 w-100">
                 <div class="flex justify-center flex-column pt-6 pb-2">
                     <div class="d-flex justify-content-center mb-3">
@@ -77,7 +77,6 @@
                             @if (Route::has('register'))
                             <li class="nav-item"><a href="{{ route('register') }}" class="nav-link px-2 text-body-secondary">Register</a></li>
                             @endif
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact</a></li>
                         </ul>
                         <p class="text-center text-body-secondary">© 2023 eLog, Inc</p>
                     </footer>

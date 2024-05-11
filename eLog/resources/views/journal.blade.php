@@ -4,7 +4,7 @@
 <x-app-layout>
     <!-- Header -->
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-center">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight text-center">
             {{ __('Journal') }}
         </h2>
     </x-slot>
@@ -23,7 +23,7 @@
                     </div>
                 </form>
                 <!-- Date -->
-                <div class="d-flex col text-center text-xl text-gray-900 dark:text-gray-200 leading-tight text-break justify-content-center align-items-center">
+                <div class="d-flex col text-center text-xl text-gray-200 leading-tight text-break justify-content-center align-items-center">
                     {{ $entry ? strtoupper($entry->created_at->toFormattedDateString()) : now()->toFormattedDateString() }}
                 </div>
                 <!-- Next entry button -->
