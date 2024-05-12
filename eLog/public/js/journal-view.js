@@ -4,9 +4,9 @@ function journalForm(e)
 {
     let textArea = document.querySelector('.textarea-form');
     textArea.value = textArea.defaultValue.trim();
+    textArea.style.height = textArea.scrollHeight;
 
     textArea.addEventListener('input', function() {
-        this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
       });
     
