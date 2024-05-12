@@ -8,7 +8,7 @@ function deleteHabit(e)
         element.addEventListener('submit', function(event) {
             event.preventDefault();
             if(confirm('Do you really want to delete this habit?')) {
-                console.log('enstra');
+                event.target.submit();
             }
           });
     });
