@@ -23,7 +23,7 @@
         </div>
     @else
         <div class="row flex-column m-0 pb-6 justify-content-center border-bottom border-light">
-            <p class="text-center text-lg mt-3">You haven't written your first journal entry yet!</p>
+            <p class="text-center text-lg mt-3">You have no previous journal entries!</p>
         </div>
     @endif
 
