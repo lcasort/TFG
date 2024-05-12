@@ -47,7 +47,7 @@ class HabitRepository
                     }
                 );
             }
-        );
+        )->sortBy('name');
 
         $res = [];
         // We iterate through every habit
@@ -92,7 +92,7 @@ class HabitRepository
                     }
                 );
             }
-        );
+        )->sortBy('name');
 
         
         $res = [];
